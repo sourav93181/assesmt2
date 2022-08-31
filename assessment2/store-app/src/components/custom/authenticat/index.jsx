@@ -38,11 +38,11 @@ export default function FormPage(props) {
           type="submit"
           className="input-box-text1"
           value="Submit"
-          onClick={() => {
+          onClick={() => 
             {
               getInputValue() ? navigate("/browsing/") : prompt("error");
             }
-          }}
+          }
         />
       </form>
     </div>

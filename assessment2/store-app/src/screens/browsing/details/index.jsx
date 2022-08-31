@@ -1,43 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, ProductDetail } from "../../../components";
-import { getBrowsingData } from "../../../api/browsingApi";
 import "./style.css";
-
+import { useSelector } from "react-redux";
 export default function Detail(props) {
-  const { title1 ,addClickActionpart, removeClickActionpart, searching,detailing,handleproduct} = props;
+  const count = useSelector((store) => store.counter);
+  const { title ,detailing} = props;
 
-  const [listOfObject, setlistOfObject] = useState([]);
-  useEffect(() => {
-    setlistOfObject(getBrowsingData());
-  }, []);
   return (
     <div className="product-detail">
       <ProductDetail
-        title={title1.item2}
-        descrip={title1.item3}
-        pricing={title1.price}
-        parimg={title1.item1}
-        addClickAction={addClickActionpart}
-        removeClickAction={removeClickActionpart}
+       
+        thatitem={title}
+        ident={title.id}
       />
       <p>Suggestion</p>
       <div className="Product-Window">
-        {(searching.length === 0
-          ? listOfObject
-          : listOfObject.filter((item) => item.item2.includes(searching))
+        {(count.search.length === 0
+          ? count.listOfAllObject
+          : count.listOfAllObject.filter((item) =>
+              item.item2.includes(count.search)
+            )
         ).map((item) => {
-          return (
-            <Card
-              itemImages={item.item1}
-              itemNames={item.item2}
-              itemDesc={item.item3}
-              addClickAction={addClickActionpart}
-              removeClickAction={removeClickActionpart}
-              thatitem={item}
-              detailing={detailing}
-              handleproduct1={handleproduct}
-            />
-          );
+          return <Card detailing={detailing} ident={item.id} thatitem={item} />;
         })}
       </div>
     </div>

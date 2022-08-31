@@ -3,10 +3,13 @@ import "./style.css";
 import { useNavigate } from "react-router-dom";
 import cart from "../../../assest/images/cart.svg";
 import profile from "../../../assest/images/profile.svg";
+import { useSelector ,useDispatch } from "react-redux";
+import { onSearchChanging } from "../../../redux/todoSlice";
 export default function NavBar(props) {
   let navigate = useNavigate();
-
-  const { onSearchChange, title = "Genral Store", sizeOfCart = 0 } = props;
+  const count = useSelector((store) => store.counter);
+  const dispatch = useDispatch();
+  const {  title = "Genral Store" } = props;
 
   return (
     <div className="NavBar-container">
@@ -17,7 +20,7 @@ export default function NavBar(props) {
         type="text"
         placeholder="Search Product"
         className="NavBar-search"
-        onChange={(e) => onSearchChange(e.target.value)}
+        onChange={(e) => dispatch(onSearchChanging(e.target.value))}
       />
       <p
         onClick={() => navigate("/browsing/mobilescreen")}
@@ -36,8 +39,8 @@ export default function NavBar(props) {
             alt="cart"
             onClick={() => navigate("/browsing/cart")}
           />
-          {sizeOfCart > 0 && (
-            <p className="NavBar-icon-tooltip">{sizeOfCart}</p>
+          {count.sizeOfCart > 0 && (
+            <p className="NavBar-icon-tooltip">{count.sizeOfCart}</p>
           )}
         </span>
         <img
