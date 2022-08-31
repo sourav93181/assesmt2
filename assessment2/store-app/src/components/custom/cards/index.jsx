@@ -2,7 +2,7 @@ import React from 'react';
 import "./style.css"
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { decrementCart, incrementCart,handleincrese1,handledecrese1,handleproduct2 } from '../../../redux/todoSlice';
+import { decrementCart, incrementCart,handleincrese1,handledecrese1,handleproduct2, handleremove2 } from '../../../redux/todoSlice';
 export default function Card(props) {
   let navigate = useNavigate();
    const count = useSelector((store) => store.counter);
@@ -39,6 +39,7 @@ const dispatch = useDispatch();
               ) {
                 dispatch(decrementCart());
                 dispatch(handledecrese1(ident));
+                dispatch(handleremove2(thatitem))
               }
             }}
           >

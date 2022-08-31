@@ -12,7 +12,7 @@ const cardslice = createSlice({
     listOfRealmeObject: getRealmeimg(),
     listOfClothesObject: getDenimimg(),
     listOfCartOjbect: [],
-    
+
   },
   reducers: {
     onSearchChanging(state, action) {
@@ -43,12 +43,12 @@ const cardslice = createSlice({
       state.listOfAllObject = state.listOfAllObject.map((item) =>
         item.id === action.payload
           ? {
-              ...productexit,
-              quantity:
-                productexit.quantity === 0
-                  ? productexit.quantity
-                  : productexit.quantity - 1,
-            }
+            ...productexit,
+            quantity:
+              productexit.quantity === 0
+                ? productexit.quantity
+                : productexit.quantity - 1,
+          }
           : item
       );
     },
@@ -57,7 +57,6 @@ const cardslice = createSlice({
       const productexit = state.listOfCartOjbect.find(
         (item) => item.id === action.payload.id
       );
-      console.log(action.payload);
       if (productexit) {
         state.listOfCartOjbect = state.listOfCartOjbect.map((item) =>
           item.id === action.payload.id ? { ...productexit } : item
@@ -69,6 +68,25 @@ const cardslice = createSlice({
         ];
       }
     },
+
+    handleremove2(state, action) {
+      const productexit = state.listOfAllObject.find(
+        (item) => item.id === action.payload.id
+      );
+        
+      if (productexit.quantity === 0) {
+        state.listOfCartOjbect = state.listOfCartOjbect.filter((item) =>
+          item.id !== action.payload.id
+        );
+      } else {
+        state.listOfCartOjbect = state.listOfCartOjbect.map((item) =>
+          item.id === action.payload.id ? { ...productexit }:item
+        );
+      }
+      console.log(productexit.quantity);
+    },
+
+
   },
 });
 
@@ -79,5 +97,6 @@ export const {
   handledecrese1,
   handleincrese1,
   handleproduct2,
+  handleremove2,
 } = cardslice.actions;
 export default cardslice.reducer;
